@@ -1,11 +1,9 @@
+require "vf4_training.global_variables"
 require "vf4_training.memory_addresses.vf4evo"
 require "vf4_training.memory_addresses.vf4ft"
-require "vf4_training.frame_data"
+require "vf4_training.frame_data.frame_data_overlay"
+require "vf4_training.training.training_overlay"
 require "vf4_training.utils.utils"
-require "vf4_training.overlays.frame_data_overlay"
-require "vf4_training.global_variables"
-require "vf4_training.overlays.training_overlay"
-require "vf4_training.training"
 
 function Overlay()
   FrameDataOverlay.start()

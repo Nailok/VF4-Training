@@ -1,9 +1,9 @@
 FrameData = {}
 
 function FrameData.p1_startup()
-    local mem_move_startup = 0
-    mem_move_startup = MEMORY.read16(GAME_ADDRESSES.player1_move_startup)
-    
+    local mem_move_startup = MEMORY.read16(GAME_ADDRESSES.player1_move_startup)
+    if mem_move_startup == 1 then mem_move_startup = 0 end
+
     return mem_move_startup
 end
 

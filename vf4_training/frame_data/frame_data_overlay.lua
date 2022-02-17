@@ -1,3 +1,5 @@
+require "vf4_training.frame_data.frame_data"
+
 FrameDataOverlay = {}
 
 function FrameDataOverlay.start()
