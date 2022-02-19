@@ -20,7 +20,3 @@ function Utils.bool_to_string(value)
 		return 'false'
 	end
 end
-
-function Utils.toggle_overlay(overlay)
-
-end
