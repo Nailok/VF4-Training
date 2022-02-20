@@ -3,9 +3,11 @@ require "vf4_training.memory_addresses.vf4evo"
 require "vf4_training.memory_addresses.vf4ft"
 require "vf4_training.frame_data.frame_data_overlay"
 require "vf4_training.training.training_overlay"
+require "vf4_training.players_info"
 require "vf4_training.utils.utils"
 
 function Overlay()
+  PlayersInfo.initialize_values()
   FrameDataOverlay.start()
   TrainingOverlay.start()
 end

@@ -1,100 +1,69 @@
 FrameData = {}
-FrameData.stored = {}
-FrameData.stored.p1_adv = 0
-FrameData.stored.p1_startup = 0
-FrameData.stored.p1_move_dmg = 0
+
+FrameData.values = {}
+FrameData.values.p1_adv = 0
+FrameData.values.p1_startup = 0
+FrameData.values.p1_move_damage = 0
+FrameData.values.p1_combo_damage = 0
 
 function FrameData.p1_startup()
-    local mem_move_startup = MEMORY.read16(GAME_ADDRESSES.p1_move_startup)
+    local move_startup = PlayersInfo.p1_move_startup
 
-    if FrameData.is_p2_hit() and mem_move_startup ~= 0 then
-        FrameData.stored.p1_startup = mem_move_startup
+    if (PlayersInfo.is_p2_thrown() or PlayersInfo.is_p2_hit() or PlayersInfo.is_p2_staggered) and move_startup ~= 1 then
+        FrameData.values.p1_startup = move_startup
     end
 
-    return FrameData.stored.p1_startup
+    return FrameData.values.p1_startup
 end
 
 function FrameData.p1_adv()
-    local mem_adv = MEMORY.read16(GAME_ADDRESSES.p1_frame_advantage)
-    local converted_adv = Utils.convert_to_signed16(mem_adv)
+    local adv = PlayersInfo.p1_frame_advantage
+    local converted_adv = Utils.convert_to_signed16(adv)
+    local recovery_time = PlayersInfo.p1_recovery_time_after_hit
 
-    local recovery_time = FrameData.recovery_time_after_hit()
-
-    if recovery_time > 10 and recovery_time < 30 then                   --- TODO: find a better way to save frame advantage
-        FrameData.stored.p1_adv = converted_adv
+    if recovery_time > 10 and recovery_time < 50 then                   --- TODO: find a better way to track frame advantage
+        FrameData.values.p1_adv = converted_adv
     end
 
-    if FrameData.is_p2_juggled() or FrameData.p2_state() == 13 then
-        FrameData.stored.p1_adv = 0
+    if PlayersInfo.is_p2_juggled() or PlayersInfo.is_p2_staggered() == 13 or PlayersInfo.is_p2_thrown() then
+        FrameData.values.p1_adv = ''
     end
 
-    return FrameData.stored.p1_adv
+    return FrameData.values.p1_adv
 end
 
 function FrameData.p1_move_damage()
-    local mem_move_dmg_value = MEMORY.read16(GAME_ADDRESSES.p1_move_damage)
-    if FrameData.is_p2_hit() == 0 then
-        FrameData.stored.p1_move_dmg = mem_move_dmg_value
+    local move_damage_value = PlayersInfo.p1_move_damage
+    if move_damage_value ~= 0 and PlayersInfo.is_p2_hit() then
+        FrameData.values.p1_move_damage = move_damage_value
     end
 
-   return FrameData.stored.p1_move_dmg 
+   return FrameData.values.p1_move_damage 
 end
 
 function FrameData.p1_combo_damage()
-    return MEMORY.read16(GAME_ADDRESSES.p1_combo_damage)
-end
-
-function FrameData.p1_health()
-    return MEMORY.read16(GAME_ADDRESSES.p1_health)
-end
-
-function FrameData.p2_health()
-    return MEMORY.read16(GAME_ADDRESSES.p2_health)
-end
-
-function FrameData.p1_idle_time()
-    return MEMORY.read16(GAME_ADDRESSES.p1_idle_time)
-end
-
-function FrameData.p2_idle_time()
-    return MEMORY.read8(GAME_ADDRESSES.p2_idle_time)
-end
-
-function FrameData.p2_state()
-    return MEMORY.read8(GAME_ADDRESSES.p2_state)
-end
-
-function FrameData.is_p2_hit()
-    local p2_state = FrameData.p2_state()
-    if (p2_state == 13 or p2_state == 7 or p2_state == 10) then
-        return true
+    local combo_damage = PlayersInfo.p1_combo_damage
+    if combo_damage ~= 0 then
+        FrameData.values.p1_combo_damage = combo_damage
     end
 
-    return false
+    return FrameData.values.p1_combo_damage
 end
 
-function FrameData.is_p2_juggled()
-    local p2_state = FrameData.p2_state()
-
-    if p2_state == 8 then
-        return true
+function FrameData.clear()
+    for key, _ in pairs(FrameData.values) do
+        FrameData.values[key] = 0
     end
-
-    return false
 end
 
-function FrameData.recovery_time_after_hit() --- not sure if its a recovery time, so dirty hack with frame adv
-    return MEMORY.read16(0x0C29F9EC)
+function FrameData.clear_if_players_are_idle()
+    if (PlayersInfo.p1_idle_time > 2) or (PlayersInfo.p2_idle_time > 3) then
+        FrameData.clear()
+    end
 end
 
-
-function FrameData.clear_framedata_if_players_are_idle()
-    local p1_idle_time = FrameData.p1_idle_time()
-    local p2_idle_time = FrameData.p2_idle_time()
-
-    if (p1_idle_time > 3) or (p2_idle_time > 3) then
-        for key, _ in pairs(FrameData.stored) do
-            FrameData.stored[key] = 0
-        end
+function FrameData.clear_if_p1_is_hitted()
+    if PlayersInfo.is_p1_hitted() or PlayersInfo.is_p1_thrown() or PlayersInfo.is_p1_juggled() then
+        FrameData.clear()
     end
 end
