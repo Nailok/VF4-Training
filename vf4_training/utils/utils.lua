@@ -20,3 +20,11 @@ function Utils.bool_to_string(value)
 		return 'false'
 	end
 end
+
+function Utils.present_in_array(value, array)
+	for _, v in pairs(array) do
+		if value == v then
+			return true
+		end
+	end
+end

@@ -1,18 +1,17 @@
 require "vf4_training.training.training"
-require "vf4_training.training.
 
 TrainingOverlay = {}
 TrainingOverlay.is_shown = true
 
 function TrainingOverlay.start()
-    TrainingOverlay.create_main_menu_ui()
+    TrainingOverlay.main_menu()
 end
 
--- function TrainingOverlay.main_menu()
---     if is_shown == true then
---         create_main_menu_ui()
---     end
--- end
+function TrainingOverlay.main_menu()
+    if MEMORY.read16(GAME_ADDRESSES.game_state) == 10 and MEMORY.read8(GAME_ADDRESSES.game_mode) == 2 then --- to game_values.lua (if round_start and real_players == 2)
+        TrainingOverlay.create_main_menu_ui()
+    end
+end
 
 function TrainingOverlay.create_main_menu_ui()
     local ui = flycast.ui
@@ -20,25 +19,14 @@ function TrainingOverlay.create_main_menu_ui()
     local frame_data_height = 0
     local frame_data_y = 200
     local frame_data_x = 100
-    -- local guard_button_text = "Guard standing: " .. Utils.bool_to_string(Training.is_guarding)
     ui.beginWindow("Training", frame_data_x, frame_data_y, frame_data_width, frame_data_height)
-        Training.process_inputs()
         ui.button('Guard', function() Training.guard_standing() end)
         ui.button('Crouch Guard', function() Training.guard_crouching() end)
         ui.button('Neutral', function() Training.reset_states() end)
-        ui.text('guard: ')
-        ui.rightText(Utils.bool_to_string(Training.states.guard))
-        ui.text('Crouch: ')
-        ui.rightText(Utils.bool_to_string(Training.states.crouch))
+        ui.button('Reset rounds', function() Training.reset_round() end)
+        ui.button('Reload level', function() Training.reload_level() end)
+        ui.button('Show hitboxes with model', function() Training.show_hitboxes_with_models() end)
+        ui.button('Show hitboxes without model', function() Training.show_hitboxes_without_models() end)
+        ui.button('Hide hitboxes', function() Training.hide_hitboxes() end)
     ui.endWindow()
 end
-
--- function  TrainingOverlay.guard_options_menu()
---     local is_shown = false
---     ui.beginWindow("Training", frame_data_x, frame_data_y, frame_data_width, frame_data_height)
---         ui.button(guard_button_text, function() Training.guard_standing() end)
---         ui.button()
---     ui.endWindow()
-
-    
--- end
