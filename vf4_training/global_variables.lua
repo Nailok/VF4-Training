@@ -4,6 +4,6 @@ STATE = flycast.state
 MEMORY = flycast.memory
 INPUT = flycast.input
 GAME_ADDRESSES = nil
+DEBUG = false
 
 -- PlayersInfo = {}
--- PlayersInfo.hit_state = {}

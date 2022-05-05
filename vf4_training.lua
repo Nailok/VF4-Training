@@ -7,11 +7,12 @@ require "vf4_training.players_info"
 require "vf4_training.utils.utils"
 
 function Overlay()
-  ChangeCostume()
-  PlayersInfo.initialize_values()
-  FrameDataOverlay.start()
-  TrainingOverlay.start()
-  Training.process_inputs()
+  if GAME_ADDRESSES ~= nil then
+    PlayersInfo.initialize_values()
+    FrameDataOverlay.start()
+    TrainingOverlay.start()
+    Training.process_inputs()
+  end
 end
 
 function CheckRom()
@@ -26,11 +27,11 @@ end
 
 function ChangeCostume()
   if MEMORY.read16(GAME_ADDRESSES.game_state) == 3 then
-    if INPUT.getButtons(1) == 0xFFFFFFF8 and MEMORY.read8(GAME_ADDRESSES.p1_costume) == 0 then
+    if (INPUT.getButtons(1) == 0xFFFFFFF8) and MEMORY.read8(GAME_ADDRESSES.p1_costume) == 0 then
       MEMORY.write8(GAME_ADDRESSES.p1_costume, 2)
     end
 
-    if INPUT.getButtons(1) == 0xFFFFFFF8 and MEMORY.read8(GAME_ADDRESSES.p1_costume) == 1 then
+    if (INPUT.getButtons(1) == 0xFFFFFFF8) and MEMORY.read8(GAME_ADDRESSES.p1_costume) == 1 then
       MEMORY.write8(GAME_ADDRESSES.p1_costume, 3)
     end
   end

@@ -23,10 +23,20 @@ function TrainingOverlay.create_main_menu_ui()
         ui.button('Guard', function() Training.guard_standing() end)
         ui.button('Crouch Guard', function() Training.guard_crouching() end)
         ui.button('Neutral', function() Training.reset_states() end)
-        ui.button('Reset rounds', function() Training.reset_round() end)
-        ui.button('Reload level', function() Training.reload_level() end)
-        ui.button('Show hitboxes with model', function() Training.show_hitboxes_with_models() end)
-        ui.button('Show hitboxes without model', function() Training.show_hitboxes_without_models() end)
+        ui.button('Show hitboxes', function() Training.show_hitboxes() end)
         ui.button('Hide hitboxes', function() Training.hide_hitboxes() end)
+        ui.button('Set p2 as CPU', function() Training.set_p2_as_cpu() end)
+        ui.button('Set p2 as Human', function() Training.set_p2_as_human() end)
+        TrainingOverlay.debug_data(ui)
     ui.endWindow()
+end
+
+function TrainingOverlay.debug_data(ui)
+    if DEBUG == false then
+        return
+    end
+
+    ui.button('Reset rounds', function() Training.reset_round() end)
+    ui.button('Reload level', function() Training.reload_level() end)
+    ui.button('Show hitboxes with model', function() Training.show_hitboxes_with_models() end)
 end

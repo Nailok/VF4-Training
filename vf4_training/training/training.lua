@@ -1,9 +1,10 @@
+-- TODO: rewrite toogle buttons
 Training = {}
 Training.states = {}
 Training.states.guard = false
 Training.states.crouch = false
 Training.states.tech_roll = false
-Training.courch_button_pressed = false
+Training.crouch_button_pressed = false
 Training.guard_button_pressed = false
 
 function Training.reset_states()
@@ -22,6 +23,7 @@ function Training.guard_crouching()
     Training.reset_states()
     Training.states.guard = true
     Training.states.crouch = true
+    Training.guard_button_pressed = true
     Training.crouch_button_pressed = true
 end
 
@@ -31,16 +33,16 @@ function Training.tech_roll()
 end
 
 function Training.process_inputs()
-    if Training.states.guard == true then
+    if Training.states.guard then
         INPUT.pressButtons(2, 1)
-    elseif Training.states.guard == false and Training.guard_button_pressed then
+    elseif not Training.states.guard and Training.guard_button_pressed then
         INPUT.releaseButtons(2, 1)
         Training.guard_button_pressed = false
     end
 
-    if Training.states.crouch == true then
+    if Training.states.crouch then
         INPUT.pressButtons(2, 32)
-    elseif Training.states.crouch == false and Training.crouch_button_pressed then
+    elseif not Training.states.crouch and Training.crouch_button_pressed then
         INPUT.releaseButtons(2, 32)
         Training.crouch_button_pressed = false
     end
@@ -62,10 +64,18 @@ function Training.show_hitboxes_with_models()
     MEMORY.write8(GAME_ADDRESSES.hitboxes, 1) 
 end
 
-function Training.show_hitboxes_without_models()
+function Training.show_hitboxes()
     MEMORY.write8(GAME_ADDRESSES.hitboxes, 2) 
 end
 
 function Training.hide_hitboxes()
     MEMORY.write8(GAME_ADDRESSES.hitboxes, 0) 
+end
+
+function Training.set_p2_as_cpu()
+    MEMORY.write8(GAME_ADDRESSES.p2_player_controller, 33) 
+end
+
+function Training.set_p2_as_human()
+    MEMORY.write8(GAME_ADDRESSES.p2_player_controller, 37) 
 end

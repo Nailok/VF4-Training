@@ -7,12 +7,13 @@ FT_MEMORY_TABLE = {
     ['hit_type'] = 0x0C4220C4,                                  -- byte
     ['game_mode'] = 0x0C2925CC,                                 -- byte
     ['hitboxes'] = 0x0C292792,                                  -- byte
+    ['combo_counter'] = 0x0C37C4E2,
 
     ['camera_zoom'] = 0x0C370D36,                               -- 2 bytes
 
     ['p1_health'] = 0x0C37BA40,                                 -- 2 bytes
     ['p1_frame_advantage'] = 0x0C37C406,                        -- 2 bytes
-    ['p1_move_startup'] = 0x0C37BD16,                           -- 2 bytes
+    ['p1_move_startup'] = 0x0C37C1BA,                           -- 2 bytes
     ['p1_move_damage'] = 0x0C37BCD0,                            -- 2 bytes
     ['p1_combo_damage'] = 0x0C37C4D0,                           -- 2 bytes
     ['p1_recovery_time_after_hit'] = 0x0C37BA42,                -- 2 bytes
@@ -20,7 +21,10 @@ FT_MEMORY_TABLE = {
     ['p1_state'] = 0x0C4205D0,                                  -- 2 bytes
     ['p1_costume'] = 0x0C2926E8,                                -- byte
     ['p1_hit_state'] = 0x0C37BA35,                              -- 2 bytes
-    ['p1_combo_counter'] = 0x0C37C4E2,                          -- byte
+    ['p1_combo_counter'] = 0x0C37C4CE,                          -- byte
+    ['p1_hit_counter'] = 0x0C37CB18,
+    ['p1_player_controller'] = 0x0C37BA48,
+    ['p1_hit_check'] = 0x0C37BBA0,                              -- byte
     
     ['p2_health'] = 0x0C37C2AC,                                 -- 2 bytes
     ['p2_recovery_time_after_hit'] = 0x0C37C2AE,                -- 2 bytes
@@ -28,7 +32,10 @@ FT_MEMORY_TABLE = {
     ['p2_state'] = 0x0C4205E0,                                  -- byte
     ['p2_costume'] = 0x0C2926EC,                                -- byte
     ['p2_hit_state'] = 0x0C37C2A1,                              -- 2 bytes
-    ['p2_got_hit'] = 0x0C37CB9F,                                -- byte
+    ['p2_hit_count'] = 0x0C37D18C,
+    ['p2_block_counter'] = 0x0C43170C,                          -- 2 bytes
+    ['p2_player_controller'] = 0x0C37C2B4,
+    ['p2_hit_check'] = 0x0C37C40C                               -- byte
 }
 
 FT_MEMORY_TABLE.is_evo = false

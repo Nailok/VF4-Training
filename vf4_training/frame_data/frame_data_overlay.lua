@@ -3,7 +3,7 @@ require "vf4_training.frame_data.frame_data"
 FrameDataOverlay = {}
 
 function FrameDataOverlay.start()
-    if MEMORY.read16(GAME_ADDRESSES.game_state) == 10 then -- if round starts
+    if MEMORY.read16(GAME_ADDRESSES.game_state) == 10 then --- to game_values.lua (if round_start)
         FrameDataOverlay.create_overlay()
     end
 end
@@ -24,13 +24,18 @@ function FrameDataOverlay.create_overlay()
         ui.rightText(FrameData.hit_type())
         ui.text("Damage: ")
         ui.rightText(FrameData.p1_combo_damage())
+        FrameDataOverlay.debug_data(ui)
     ui.endWindow()
 
     FrameData.clear_if_players_are_idle()
     FrameData.clear_if_p1_is_hit()
 end
 
-function FrameDataOverlay.raw_data(ui)
+function FrameDataOverlay.debug_data(ui)
+    if DEBUG == false then
+        return
+    end
+
     local pkg_pressed = false
     if INPUT.getButtons(1) == 0xFFFFFFF8 then
         pkg_pressed = true
