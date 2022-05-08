@@ -8,6 +8,7 @@ FT_MEMORY_TABLE = {
     ['game_mode'] = 0x0C2925CC,                                 -- byte
     ['hitboxes'] = 0x0C292792,                                  -- byte
     ['combo_counter'] = 0x0C37C4E2,
+    ['round_time_frames'] = 0x0C29256C,                         -- 2 bytes
 
     ['camera_zoom'] = 0x0C370D36,                               -- 2 bytes
 
@@ -27,6 +28,9 @@ FT_MEMORY_TABLE = {
     ['p1_hit_check'] = 0x0C37BBA0,                              -- byte
     
     ['p2_health'] = 0x0C37C2AC,                                 -- 2 bytes
+    ['p2_frame_advantage'] = 0x0C37BB9A,                        -- 2 bytes
+    ['p2_move_startup'] = 0x0C37C582,                           -- 2 bytes
+    ['p2_combo_damage'] = 0x0C37BC64,                           -- 2 bytes
     ['p2_recovery_time_after_hit'] = 0x0C37C2AE,                -- 2 bytes
     ['p2_idle_time'] = 0x0C37C5B8,                              -- 2 bytes
     ['p2_state'] = 0x0C4205E0,                                  -- byte

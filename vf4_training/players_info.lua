@@ -144,15 +144,13 @@ function PlayersInfo.player_neutral(player)
 end
 
 function PlayersInfo.player_hit_check(player)
-    if player == 1 then
-        if PlayersInfo.p1_hit_check == 1 or PlayersInfo.p1_hit_check == 4 then
-            return true
-        end
-    elseif player == 2 then
-        if PlayersInfo.p2_hit_check == 1 or PlayersInfo.p2_hit_check == 4 then
-            return true
-        end
+    hit_check_table_string = 'p' .. player ..'_hit_check'
+
+    if PlayersInfo[hit_check_table_string] ~= 0 then
+        return true
     end
+
+    return false
 end
 
 function PlayersInfo.get_player_state(player)

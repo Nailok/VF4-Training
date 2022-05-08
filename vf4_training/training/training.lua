@@ -60,16 +60,14 @@ function Training.reload_level()
     MEMORY.write16(GAME_ADDRESSES.game_state, 1) 
 end
 
-function Training.show_hitboxes_with_models()
-    MEMORY.write8(GAME_ADDRESSES.hitboxes, 1) 
-end
+function Training.toggle_hitboxes()
+    hitboxes = MEMORY.read8(GAME_ADDRESSES.hitboxes)
 
-function Training.show_hitboxes()
-    MEMORY.write8(GAME_ADDRESSES.hitboxes, 2) 
-end
-
-function Training.hide_hitboxes()
-    MEMORY.write8(GAME_ADDRESSES.hitboxes, 0) 
+    if hitboxes == 0 then 
+        MEMORY.write8(GAME_ADDRESSES.hitboxes, 2) -- to game_addresses.lua
+    elseif hitboxes == 2 then
+        MEMORY.write8(GAME_ADDRESSES.hitboxes, 0) 
+    end
 end
 
 function Training.set_p2_as_cpu()
