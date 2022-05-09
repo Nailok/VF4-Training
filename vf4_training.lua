@@ -12,7 +12,7 @@ function Overlay()
     FrameDataOverlay.start()
     TrainingOverlay.start()
     Training.process_inputs()
-    -- ChangeCostume()
+    ChangeCostume()
   end
 end
 
