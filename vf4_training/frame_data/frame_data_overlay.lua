@@ -3,7 +3,7 @@ require "vf4_training.frame_data.frame_data"
 FrameDataOverlay = {}
 
 function FrameDataOverlay.start()
-    if MEMORY.read16(GAME_ADDRESSES.game_state) == 10 then --- to game_values.lua (if round_start)
+    if MEMORY.read16(GAME_ADDRESSES.game_sub_state) == 10 and MEMORY.read16(GAME_ADDRESSES.game_state) == 3 then --- to game_values.lua (if round_start)
         FrameDataOverlay.create_overlay()
     end
 end
@@ -53,4 +53,6 @@ function FrameDataOverlay.debug_data(ui)
     ui.rightText(INPUT.getButtons(1))
     ui.text("pkg pressed: ")
     ui.rightText(Utils.bool_to_string(pkg_pressed))
+    ui.text("skip: ")
+    ui.rightText(Utils.bool_to_string(Training.reset_round))
 end

@@ -34,7 +34,7 @@ function FrameData.p1_adv()
         FrameData.values.p1_adv = converted_adv
     end
 
-    if converted_adv == 0 and recovery_time > 15 then
+    if converted_adv == 0 and PlayersInfo.player_hit_check(1) then
         FrameData.values.p1_adv = 0
     end
 

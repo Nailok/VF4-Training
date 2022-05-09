@@ -1,6 +1,6 @@
 EVO_MEMORY_TABLE = {
     ['level_id'] = 0x0C24CC80,                                  -- 4 bytes
-    ['game_state'] = 0x0C1FE184,                                -- 2 bytes
+    ['game_sub_state'] = 0x0C1FE184,                                -- 2 bytes
     ['game_timer'] = 0x0C24CAF4,                                -- float
     ['rounds_counter'] = 0x0C24CB58,                            -- 2 bytes
     ['players_wins_counter'] = 0x0C24CB50,                      -- 2 bytes

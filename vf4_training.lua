@@ -27,7 +27,7 @@ function CheckRom()
 end
 
 function ChangeCostume()
-  if MEMORY.read16(GAME_ADDRESSES.game_state) == 3 then
+  if MEMORY.read16(GAME_ADDRESSES.game_sub_state) == 3 then
     if (INPUT.getButtons(1) == 0xFFFFFFF8) and MEMORY.read8(GAME_ADDRESSES.p1_costume) == 0 then
       MEMORY.write8(GAME_ADDRESSES.p1_costume, 2)
     end

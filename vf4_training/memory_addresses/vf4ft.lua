@@ -1,6 +1,8 @@
 FT_MEMORY_TABLE = {
     ['level_id'] = 0x0C2926DC,                                  -- 4 bytes
-    ['game_state'] = 0x0C243148,                                -- 2 bytes
+    ['game_state'] = 0x0C24313C,                                -- byte, 1 - intro, 2 - character select menu, 3 - gameplay
+    ['game_sub_state'] = 0x0C243148,                            -- 2 bytes
+    ['game_sub_state_timer'] = 0x0C292578,                      -- 2 byte
     ['game_timer'] = 0x0C292574,                                -- float
     ['rounds_counter'] = 0x0C2925D8,                            -- 2 bytes
     ['players_wins_counter'] = 0x0C2925D0,                      -- 2 bytes
@@ -26,6 +28,7 @@ FT_MEMORY_TABLE = {
     ['p1_hit_counter'] = 0x0C37CB18,
     ['p1_player_controller'] = 0x0C37BA48,
     ['p1_hit_check'] = 0x0C37BBA0,                              -- byte
+    ['p1_stance'] = 0x0C37BD48,                                 -- byte
     
     ['p2_health'] = 0x0C37C2AC,                                 -- 2 bytes
     ['p2_frame_advantage'] = 0x0C37BB9A,                        -- 2 bytes
@@ -39,14 +42,15 @@ FT_MEMORY_TABLE = {
     ['p2_hit_count'] = 0x0C37D18C,
     ['p2_block_counter'] = 0x0C43170C,                          -- 2 bytes
     ['p2_player_controller'] = 0x0C37C2B4,
-    ['p2_hit_check'] = 0x0C37C40C                               -- byte
+    ['p2_hit_check'] = 0x0C37C40C,                              -- byte
+    ['p2_stance'] = 0x0C37C5B4
 }
 
 FT_MEMORY_TABLE.is_evo = false
 FT_MEMORY_TABLE.is_ft = true
 
 
---- game_state:  to other file
+--- game_sub_state:  to other file
                 -- 1  - reload level
                 -- 5  - p2 cutscene before round 
                 -- 7  - new round 

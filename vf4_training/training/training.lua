@@ -50,14 +50,14 @@ end
 
 function Training.reset_round()
     Training.reset_states()
-    MEMORY.write16(GAME_ADDRESSES.game_state, 7) 
+    MEMORY.write16(GAME_ADDRESSES.game_sub_state, 7) 
     MEMORY.write16(GAME_ADDRESSES.rounds_counter, 0) 
     MEMORY.write16(GAME_ADDRESSES.players_wins_counter, 0) 
 end
 
 function Training.reload_level()
     Training.reset_states()
-    MEMORY.write16(GAME_ADDRESSES.game_state, 1) 
+    MEMORY.write16(GAME_ADDRESSES.game_sub_state, 1) 
 end
 
 function Training.toggle_hitboxes()
