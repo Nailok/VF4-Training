@@ -10,7 +10,7 @@ Supported version right now is VF4:FT (Revision. B, vf4tuned, gds-0036f). EVO is
 2. When in game, add cheats in Flycast for health and infinity time 
 
 # Known problems
-- Some moves that can be delayed are showing incorrect startup, because of how game stores this data (E.g. Jeffry's 1K+G, Lau's P+K)
+- Some moves that can be delayed are showing incorrect startup, because of how the game stores this data (E.g. Jeffry's 1K+G, Lau's P+K)
 - Using VF1 costume (press and hold P+K+G when picking character before option between 'normal' or 'challenge' mode) can crash the game VS CPU with some characters
 
 # TODO
@@ -18,3 +18,4 @@ Supported version right now is VF4:FT (Revision. B, vf4tuned, gds-0036f). EVO is
 - [ ] Switch stance
 - [ ] Reset positions
 - [ ] Change A and B moves
+- [ ] Another frame data window for P2
