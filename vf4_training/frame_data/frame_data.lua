@@ -9,6 +9,7 @@ FrameData.values.p1_startup = ''
 FrameData.values.p1_adv = ''
 FrameData.values.p1_move_damage = ''
 FrameData.values.p1_combo_damage = ''
+FrameData.values.p1_hit_percentage = ''
 
 function FrameData.p1_startup()
     local move_startup = PlayersInfo.p1_move_startup
@@ -55,10 +56,12 @@ end
 
 function FrameData.p1_combo_damage()
     local combo_damage = PlayersInfo.p1_combo_damage
+    local hit_damage = PlayersInfo.p1_hit_damage
 
-    -- FIXME: 6p on crouching opponent shows zero for some reason
-    if combo_damage ~= 0 and (PlayersInfo.player_hit_check(1) or PlayersInfo.player_thrown(2)) then
+    if combo_damage ~= 0 then
         FrameData.values.p1_combo_damage = combo_damage
+    elseif combo_damage == 0 and hit_damage ~= 0 then
+        FrameData.values.p1_combo_damage = hit_damage
     end
 
     if PlayersInfo.got_hit(1) or PlayersInfo.player_thrown(1) or PlayersInfo.player_blocks_a_hit(2) then
@@ -68,12 +71,30 @@ function FrameData.p1_combo_damage()
     return FrameData.values.p1_combo_damage
 end
 
+function FrameData.p1_hit_percentage()
+    local hit_percentage = 0
+
+    if FrameData.values.p1_combo_damage == '' then
+        FrameData.values.p1_hit_damage_percentage = ''
+        return FrameData.values.p1_hit_damage_percentage
+    end
+
+    if PlayersInfo.player_hit_check(1) then
+        hit_percentage = math.floor((PlayersInfo.p1_hit_damage / PlayersInfo.p1_move_damage) * 100)
+        FrameData.values.p1_hit_damage_percentage = '( '..hit_percentage..'% )'
+    elseif PlayersInfo.player_thrown(2) then
+        FrameData.values.p1_hit_damage_percentage = ''
+    end
+
+    return FrameData.values.p1_hit_damage_percentage
+end
+
 function FrameData.hit_type()
-    if PlayersInfo.player_thrown(1) or PlayersInfo.player_thrown(2) then
+    if PlayersInfo.player_thrown(2) then
         FrameData.values.hit_type = 'Throw'
     end
 
-    if (PlayersInfo.player_hit_check(1) or PlayersInfo.player_hit_check(2)) then
+    if PlayersInfo.player_hit_check(1) then
         local hit_type = PlayersInfo.hit_type
 
         if hit_type == 1 then
@@ -121,7 +142,7 @@ function FrameData.clear_if_players_are_idle()
 end
 
 function FrameData.clear_if_p1_is_hit()
-    local fields = {'p1_adv', 'hit_type'}
+    local fields = {'p1_adv'}
 
     if PlayersInfo.got_hit(1) or PlayersInfo.player_thrown(1) or PlayersInfo.player_juggled(1) then
         FrameData.clear_except(fields)
@@ -156,9 +177,5 @@ end
 function FrameData.clear()
     for key, _ in pairs(FrameData.values) do
         FrameData.values[key] = ''
-    end
-
-    if PlayersInfo.hit_type ~= 0 and not PlayersInfo.player_attack(1) then
-        MEMORY.write16(GAME_ADDRESSES.hit_type, 0)
     end
 end

@@ -15,6 +15,7 @@ function PlayersInfo.initialize_values()
     PlayersInfo.p1_recovery_time_after_hit = MEMORY.read8(GAME_ADDRESSES.p1_recovery_time_after_hit) 
     PlayersInfo.p1_combo_counter = MEMORY.read8(GAME_ADDRESSES.p1_combo_counter) 
     PlayersInfo.p1_hit_counter = MEMORY.read16(GAME_ADDRESSES.p1_hit_counter)
+    PlayersInfo.p1_hit_damage = MEMORY.read16(GAME_ADDRESSES.p1_hit_damage)
     PlayersInfo.p1_hit_check = MEMORY.read8(GAME_ADDRESSES.p1_hit_check)
 
     PlayersInfo.p2_state = MEMORY.read8(GAME_ADDRESSES.p2_state)

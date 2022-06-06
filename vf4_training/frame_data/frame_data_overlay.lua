@@ -23,7 +23,7 @@ function FrameDataOverlay.create_overlay()
         ui.text("Type: ")
         ui.rightText(FrameData.hit_type())
         ui.text("Damage: ")
-        ui.rightText(FrameData.p1_combo_damage())
+        ui.rightText('' .. FrameData.p1_combo_damage() .. ' ' .. FrameData.p1_hit_percentage())
         FrameDataOverlay.debug_data(ui)
     ui.endWindow()
 
